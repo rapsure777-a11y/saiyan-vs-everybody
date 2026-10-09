@@ -40,6 +40,7 @@ namespace Saiyan.Player
             var a = ScriptableObject.CreateInstance<InputActionAsset>(); a.name = "SaiyanControls"; var map = a.AddActionMap("Player");
             var mv = map.AddAction("Move", InputActionType.Value); mv.expectedControlType = "Vector2";
             mv.AddCompositeBinding("2DVector").With("Up", "<Keyboard>/w").With("Down", "<Keyboard>/s").With("Left", "<Keyboard>/a").With("Right", "<Keyboard>/d");
+            mv.AddCompositeBinding("2DVector").With("Up", "<Keyboard>/upArrow").With("Down", "<Keyboard>/downArrow").With("Left", "<Keyboard>/leftArrow").With("Right", "<Keyboard>/rightArrow");
             mv.AddBinding("<Gamepad>/leftStick"); mv.AddBinding("<Gamepad>/dpad");
             map.AddAction("Jump", InputActionType.Button, "<Keyboard>/space").AddBinding("<Gamepad>/buttonSouth");
             map.AddAction("Shoot", InputActionType.Button, "<Keyboard>/j").AddBinding("<Gamepad>/buttonWest");

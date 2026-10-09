@@ -17,14 +17,14 @@ Estimated completion: **about 80 percent** (estimate): the slice is playable end
 | Boss state machine (Intro, Idle, Telegraph, Attack, Recovery, Transition, Defeated), weighted attacks without triple repeats, 70/35 percent thresholds with clamping and invulnerable transitions, hazard cap 12, three phase 1 attacks (Cupcake Toss, Hand Slam, Frost Blob), defeat and victory | **TESTED** (EditMode logic, PlayMode runs: full fight 120 HP to victory, 50 s attack cycle, stand-still bot gets hit only after the first warning) |
 | Death, Retry from checkpoint, Pause, Assist Mode (5 hearts, boss x0.66), Reduced Shake setting | **TESTED** (Retry reload, pause freeze/resume, assist values); Reduced Shake is only set, not measured |
 | Frosting Fields tutorial and arena, HUD, menus, scenes in build settings | **TESTED** (renders, screenshots reviewed by me); scenes built by `Saiyan > Setup Project` |
-| Input Actions asset with keyboard and gamepad bindings | WRITTEN and loads; **gamepad and real keyboard presses UNTESTED** (all tests use scripted input) |
+| Input Actions asset with keyboard and gamepad bindings | **TESTED with virtual keyboard, gamepad and mouse** (9 tests) and by synthetic key presses in the built exe; a PHYSICAL gamepad is untested. A first hands-on try found dead buttons (project used the old Input Manager); fixed |
 | Placeholder audio cues (generated tones) | WRITTEN; **audibility and balance UNTESTED** (I cannot hear it) |
-| Windows player build | **NOT BUILT** (`Saiyan > Build Windows Player` exists, unrun) |
+| Windows player build | **BUILT** (91 MB, `Builds/Windows/`, not committed); launched and driven with synthetic key presses, human play pending |
 | Phase 2 and 3 attacks, Cakezilla Supreme transformation | PLANNED (transitions already fire and tint the boss; the attack pool is still the phase 1 set) |
 | Real art, frame-by-frame animation, real music/SFX | PLANNED (see ART_ASSETS.md) |
 
 ## Tested in Unity
-EditMode **22/22** passed; PlayMode **18/18** passed (13 gameplay tests + 5 visual-report runs). Details in `TEST_REPORT.md`. Visual evidence: `AI_HANDOFF/SCREENSHOTS/` (28 stills, 2 clips, real renders).
+EditMode **22/22** passed; PlayMode **27/27** passed (13 gameplay, 9 real-input, 5 visual-report runs). Details in `TEST_REPORT.md`. Visual evidence: `AI_HANDOFF/SCREENSHOTS/` (28 stills, 2 clips, real renders).
 
 ## Known bugs and open issues
 - No human has played it. Feel (jump, dash, shot rate, boss pacing), fairness and difficulty are unjudged beyond the scripted checks.

@@ -91,6 +91,10 @@ namespace Saiyan.Editor
             PlayerSettings.companyName = "Gamebreak Labs"; PlayerSettings.productName = "Saiyan vs. Everybody!";
             PlayerSettings.defaultScreenWidth = 1920; PlayerSettings.defaultScreenHeight = 1080;
             PlayerSettings.fullScreenMode = FullScreenMode.Windowed;
+            // the game reads the NEW Input System only: make sure the player uses it (a project created from scratch defaults to the old Input Manager, which silently disables all input)
+            var ps = new SerializedObject(AssetDatabase.LoadAllAssetsAtPath("ProjectSettings/ProjectSettings.asset")[0]);
+            var ih = ps.FindProperty("activeInputHandler");
+            if (ih != null && ih.intValue != 1) { ih.intValue = 1; ps.ApplyModifiedPropertiesWithoutUndo(); Debug.Log("[Saiyan] active input handler set to Input System Package (restart the editor once)"); }
             PlayerSettings.SetApplicationIdentifier(NamedBuildTarget.Standalone, "com.gamebreaklabs.saiyanvseverybody");
         }
 

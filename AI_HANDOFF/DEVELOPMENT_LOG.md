@@ -20,3 +20,7 @@ Legend: TESTED / WRITTEN / PLANNED (see PROJECT_STATUS.md).
 - Visual reporting added (`AI_HANDOFF/SCREENSHOTS/`): `VisualReportTests` renders the real game to stills and frame sequences, `Tools/encode-clips.ps1` encodes MP4 with ffmpeg. 28 stills (JPEG, about 11 MB total with the clips) and 2 clips kept; PNGs and frame folders are not committed.
 - Test results: EditMode 22/22, PlayMode 18/18 (see TEST_REPORT.md).
 - Decision: the AttackCycle test no longer asserts that all three attacks appear within 50 s (a random order can miss one); that guarantee is covered deterministically by AttackSelectorTests.EveryAttackGetsChosenWithinAReasonableNumberOfPicks (200 seeds x 60 picks).
+
+## 2026-10-09 (evening): first hands-on try, dead input
+- User ran the first Windows build: buttons did not work (gamepad untried). Root cause found: ProjectSettings had activeInputHandler 0 (old Input Manager), so the Input System was inactive in the player. All earlier tests injected input through ScriptedIntent, which bypassed the problem, and the report had flagged real input as unverified.
+- Fixes: activeInputHandler set to 1 (and enforced by ProjectSetup), arrow-key bindings added. Added RealInputTests (9) using virtual keyboard, gamepad and mouse. Rebuilt the exe and drove it with real Windows key presses. EditMode 22/22, PlayMode 27/27.
