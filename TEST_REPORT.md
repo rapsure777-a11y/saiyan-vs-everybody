@@ -15,7 +15,7 @@ Root cause: the project used the OLD Input Manager (`activeInputHandler: 0`), so
 - Any human play: feel, fairness, difficulty, readability at speed.
 - A PHYSICAL gamepad and a person pressing the keys (virtual devices and synthetic key presses pass; a real controller and real hands have not been tried yet).
 - Audio (generated placeholder tones; not listened to).
-- Windows player build (never built).
+- The Windows build beyond a short synthetic-key smoke run (menu to tutorial, running); no human play session yet.
 - Performance and frame rate (not measured).
 - The Reduced Shake option's effect (the setting exists, the effect was not measured).
 - Phase 2 and 3 attacks and the Supreme form (do not exist yet).
