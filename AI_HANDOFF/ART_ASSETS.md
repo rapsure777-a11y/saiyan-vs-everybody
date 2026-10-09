@@ -20,3 +20,8 @@ No music, no voice, no recorded SFX. Placeholder tones exist per cue (jump, shoo
 
 ## Suggested pipeline for real art
 Give each character as separated PNG layers or a sprite sheet (transparent background, one pose per frame, consistent scale); import to `Assets/Art`; swap `PlayerVisual` for an Animator-driven rig. Gameplay code does not depend on the placeholder visuals.
+
+## Update 2026-10-09 (Milestone 1)
+- Screenshots and clips of the current placeholder visuals (real renders): `AI_HANDOFF/SCREENSHOTS/` (index in its README; critique against the concept art in `VISUAL_REVIEW.md`).
+- Usable in Unity now: only procedural placeholders (`PlaceholderArt.cs`, `PlayerVisual.cs`, `BossVisual.cs`, `ArenaBuilder.cs`). They render correctly and are what the screenshots show. No sprite sheets, animation clips, music or recorded SFX exist.
+- Still temporary and to be replaced: Saiyan, King Cakezilla (and his Supreme form), cupcakes/blobs/puddles/shockwave, all Frosting Fields art, UI frames and fonts, the placeholder tones in `AudioHooks.cs`.

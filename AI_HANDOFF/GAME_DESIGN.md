@@ -35,3 +35,9 @@ Match the approved concept art: saturated sky blue, candy pink frosting, cream, 
 ## Changes from the original plan
 - Phase 2 and 3 are deliberately postponed to milestone 2 (the user asked to start with the player, the environment, and phase 1).
 - Dash invulnerability is a design choice the brief left open.
+
+## Update 2026-10-09 (as built in Milestone 1)
+- Arena: camera 11.2 x 19.9 units; boss root at arena x+17; his front edge (invisible wall for the player, pass-through for stars) at x+14; two one-way platforms 2.0 units up; the left wall closes when the fight starts. Retry restarts at x+1.8 with the intro skipped.
+- Hazards: Hand Slam column 2.6 wide, floor to 5 high, armed for the slam only, then two low shockwaves (0.8 high); Cupcake Toss 1-3 arcs with blast radius 0.95; Frost Blob puddle 2.8 wide, 3.5 s, safe while fading. Warnings: 0.9 s, 1.15 s and 1.0 s (the minimum allowed is 0.6 s, enforced by a test).
+- Transitions (70/35 percent) last 2.6 s, clear all hazards, make the boss invulnerable and tint him (phase 3 adds a gold aura). The attack pool is unchanged until M2.
+- Accessibility as built: Assist Mode (5 hearts, boss health x0.66), Reduced screen shake (shake x0.15), and every sound cue has a visual (flashing markers, glove glow, banners).

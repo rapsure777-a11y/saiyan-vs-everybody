@@ -11,3 +11,12 @@ Legend: TESTED / WRITTEN / PLANNED (see PROJECT_STATUS.md).
 - Decision: Assist Mode = 5 hearts and boss health x0.66; separate Reduced Shake option.
 - WRITTEN (commit `3b07aab`, not compiled): scaffold, Core utilities (settings, pool, audio hooks with generated placeholder tones, FX, camera shake), player module, boss tuning/health/selector/hazards.
 - Tooling note: bash heredocs with quotes break in this environment, so files are written with the file tool instead.
+
+## 2026-10-09 (later): Milestone 1 built and tested
+- First Unity compile found one error (Input System AddAction overload); fixed. Project setup runs headless: `Saiyan > Setup Project` (URP asset, Input Actions asset, tuning asset, both scenes, build settings).
+- WRITTEN then TESTED: boss controller and three phase 1 attacks, tutorial and arena, HUD/menus/pause/retry/victory, camera rig, test suites. Commits `6be6579`, `81b44ff`.
+- Bugs found by the tests and fixed: (1) player stars never moved: kinematic MovePosition does not accumulate between physics steps, now velocity-driven; (2) the Super meter listened to a static event, so every meter reacted to every star, now per-shooter; (3) test worlds leaked across tests (Retry loads the level scene as the only scene), found by a "one world only" assertion and fixed with a shared cleanup; (4) a PlayMode test hung forever waiting on scaled time while paused (my own comment had also commented out the unpause call); (5) the first screenshot test hung in batch mode (WaitForEndOfFrame), replaced by camera render-to-texture.
+- Visual fixes after reviewing real frames: hearts redrawn (diamond plus two circles), sign boards sized to their text, boss gloves moved off the face, Saiyan visual scaled 1.3x, Saiyan and stars drawn in front of boss gloves and hazards.
+- Visual reporting added (`AI_HANDOFF/SCREENSHOTS/`): `VisualReportTests` renders the real game to stills and frame sequences, `Tools/encode-clips.ps1` encodes MP4 with ffmpeg. 28 stills (JPEG, about 11 MB total with the clips) and 2 clips kept; PNGs and frame folders are not committed.
+- Test results: EditMode 22/22, PlayMode 18/18 (see TEST_REPORT.md).
+- Decision: the AttackCycle test no longer asserts that all three attacks appear within 50 s (a random order can miss one); that guarantee is covered deterministically by AttackSelectorTests.EveryAttackGetsChosenWithinAReasonableNumberOfPicks (200 seeds x 60 picks).
