@@ -26,6 +26,9 @@ Estimated completion: **about 80 percent** (estimate): the slice is playable end
 ## Tested in Unity
 EditMode **22/22** passed; PlayMode **27/27** passed (13 gameplay, 9 real-input, 5 visual-report runs). Details in `TEST_REPORT.md`. Visual evidence: `AI_HANDOFF/SCREENSHOTS/` (28 stills, 2 clips, real renders).
 
+## Human feedback so far
+- 2026-10-09: first hands-on try found dead input (fixed). After the fix the user reported: "Controls work good" (which device was not stated; a physical gamepad is still unconfirmed). No feedback yet on jump/dash feel, boss difficulty, visuals or sound.
+
 ## Known bugs and open issues
 - No human has played it. Feel (jump, dash, shot rate, boss pacing), fairness and difficulty are unjudged beyond the scripted checks.
 - Visuals are crude placeholders compared with the concept art (see `SCREENSHOTS/VISUAL_REVIEW.md`).
