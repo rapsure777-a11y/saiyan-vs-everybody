@@ -23,7 +23,7 @@ namespace Saiyan.Player
         void Awake()
         {
             var src = Resources.Load<InputActionAsset>(AssetPath);
-            m_Asset = src ? Instantiate(src) : BuildFallback();
+            m_Asset = src ? Instantiate(src) : BuildDefaultAsset();
             var map = m_Asset.FindActionMap("Player", true);
             m_Move = map.FindAction("Move", true); m_Jump = map.FindAction("Jump", true); m_Shoot = map.FindAction("Shoot", true);
             m_Dash = map.FindAction("Dash", true); m_Super = map.FindAction("Super", true); m_Pause = map.FindAction("Pause", true);
@@ -35,10 +35,10 @@ namespace Saiyan.Player
         void OnDestroy() { m_Any?.Dispose(); if (m_Asset) Destroy(m_Asset); }
 
         /// <summary>If the asset is missing (should not happen) the game still works with built-in default bindings.</summary>
-        static InputActionAsset BuildFallback()
+        public static InputActionAsset BuildDefaultAsset()
         {
-            var a = ScriptableObject.CreateInstance<InputActionAsset>(); var map = a.AddActionMap("Player");
-            var mv = map.AddAction("Move", InputActionType.Value, expectedControlType: "Vector2");
+            var a = ScriptableObject.CreateInstance<InputActionAsset>(); a.name = "SaiyanControls"; var map = a.AddActionMap("Player");
+            var mv = map.AddAction("Move", InputActionType.Value); mv.expectedControlType = "Vector2";
             mv.AddCompositeBinding("2DVector").With("Up", "<Keyboard>/w").With("Down", "<Keyboard>/s").With("Left", "<Keyboard>/a").With("Right", "<Keyboard>/d");
             mv.AddBinding("<Gamepad>/leftStick"); mv.AddBinding("<Gamepad>/dpad");
             map.AddAction("Jump", InputActionType.Button, "<Keyboard>/space").AddBinding("<Gamepad>/buttonSouth");

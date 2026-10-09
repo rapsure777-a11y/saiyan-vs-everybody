@@ -11,7 +11,7 @@ $log = Join-Path $root "Logs\unity-$tag-$Version.log"
 $args = @('-batchmode', '-projectPath', "`"$root`"", '-logFile', "`"$log`"")
 if ($Method) { $args += @('-quit', '-executeMethod', $Method) }
 if ($Tests) {
-    $results = Join-Path $root "Logs\results-$($Tests.ToLower())-$Version.xml"
+    $results = Join-Path $root "Logs[Saiyan]esults-$($Tests.ToLower())-$Version.xml"
     if (Test-Path $results) { Remove-Item $results }
     $args += @('-runTests', '-testPlatform', $Tests, '-testResults', "`"$results`"")
     if ($Filter) { $args += @('-testFilter', $Filter) }

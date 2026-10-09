@@ -46,7 +46,7 @@ namespace Saiyan.Player
 
         void OnTriggerEnter2D(Collider2D other)
         {
-            if (other.GetComponentInParent<PlayerHealth>()) return;
+            if (other.GetComponentInParent<PlayerHealth>() || other.GetComponent<Saiyan.Boss.ShotPassThrough>()) return;
             var target = other.GetComponentInParent<IShootable>();
             if (target != null)
             {
