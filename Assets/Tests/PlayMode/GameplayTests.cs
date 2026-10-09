@@ -58,7 +58,7 @@ namespace Saiyan.Tests
             Spawn(); yield return null; yield return null;
             Assert.IsNotNull(m_Flow.Player); Assert.IsNotNull(m_Flow.Boss); Assert.IsNotNull(m_Flow.HudUi);
             Assert.AreEqual(3, m_Flow.Player.Health.Current);
-            Assert.AreEqual(120, m_Flow.Boss.Health.Max);
+            Assert.AreEqual(m_Flow.Tuning.maxHealth, m_Flow.Boss.Health.Max);
             Assert.AreEqual(LevelState.Tutorial, m_Flow.State);
         }
 
@@ -153,14 +153,15 @@ namespace Saiyan.Tests
             Spawn(t); yield return Seconds(0.3f);
             yield return EnterFight();
             var h = m_Flow.Boss.Health;
-            h.TakeDamage(40);                                             // 120 -> 80 would pass the 70 percent line (84): clamped to 84
-            Assert.AreEqual(84, h.Current); Assert.IsTrue(h.Invulnerable, "invulnerable the moment the line is crossed");
+            int thr2 = Mathf.RoundToInt(h.Max * 0.70f), thr3 = Mathf.RoundToInt(h.Max * 0.35f);
+            h.TakeDamage(h.Current - thr2 + 20);                          // would pass the 70 percent line: clamped onto it
+            Assert.AreEqual(thr2, h.Current); Assert.IsTrue(h.Invulnerable, "invulnerable the moment the line is crossed");
             Assert.IsFalse(h.TakeDamage(12), "no cheap hits during the transition");
             float g = 0; while (m_Flow.Boss.State != BossState.Transition && g < 1f) { g += Time.deltaTime; yield return null; }
             yield return Seconds(0.8f);
             Assert.AreEqual(2, m_Flow.Boss.Phase); Assert.IsFalse(h.Invulnerable, "vulnerable again after the transition");
-            h.TakeDamage(80);                                             // past the 35 percent line (42): clamped
-            Assert.AreEqual(42, h.Current); Assert.IsTrue(h.Invulnerable);
+            h.TakeDamage(h.Current - thr3 + 20);                          // past the 35 percent line: clamped
+            Assert.AreEqual(thr3, h.Current); Assert.IsTrue(h.Invulnerable);
             yield return Seconds(1.0f);
             Assert.AreEqual(3, m_Flow.Boss.Phase);
             h.TakeDamage(500);
@@ -235,7 +236,7 @@ namespace Saiyan.Tests
         {
             GameSettings.AssistMode = true;
             Spawn(); yield return null;
-            Assert.AreEqual(5, m_Flow.Player.Health.Max); Assert.Less(m_Flow.Boss.Health.Max, 120);
+            Assert.AreEqual(5, m_Flow.Player.Health.Max); Assert.Less(m_Flow.Boss.Health.Max, m_Flow.Tuning.maxHealth);
             GameSettings.AssistMode = false;
         }
     }

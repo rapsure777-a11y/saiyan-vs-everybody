@@ -10,7 +10,7 @@ namespace Saiyan.Player
         [Header("Run")] public float runSpeed = 6f; public float groundAccel = 70f, groundDecel = 80f, airAccel = 55f;
         [Header("Jump")] public float jumpVelocity = 12f; public float gravity = 28f, fallGravityMultiplier = 1.5f, jumpCutMultiplier = 0.45f, maxFallSpeed = 20f;
         public float coyoteTime = 0.1f, jumpBuffer = 0.12f;
-        [Header("Dash")] public float dashSpeed = 14f; public float dashTime = 0.2f, dashCooldown = 0.55f;
+        [Header("Dash")] public float dashSpeed = 14f; public float dashTime = 0.26f, dashCooldown = 0.55f;
         [Tooltip("The first part of a dash cannot be hurt (seconds). 0 = no invulnerability.")] public float dashInvulnerability = 0.12f;
         [Header("Hit")] public float knockbackSpeed = 7f, knockbackTime = 0.2f;
     }

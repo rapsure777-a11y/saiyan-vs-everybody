@@ -13,23 +13,23 @@ namespace Saiyan.Boss
         public const float MinTelegraphSeconds = 0.6f;
 
         [Header("Health and phases")]
-        public int maxHealth = 120;
+        public int maxHealth = 180;
         [Range(0.5f, 0.95f)] public float phase2At = 0.70f;
         [Range(0.1f, 0.6f)] public float phase3At = 0.35f;
         public float transitionSeconds = 2.6f;
 
         [Header("Rhythm (index 0 = phase 1)")]
-        public float[] idleSeconds = { 1.1f, 0.9f, 0.7f };
-        public float[] recoverySeconds = { 0.9f, 0.75f, 0.6f };
+        public float[] idleSeconds = { 0.8f, 0.7f, 0.55f };
+        public float[] recoverySeconds = { 0.7f, 0.6f, 0.5f };
 
         [Serializable] public class CupcakeToss
         {
-            public float telegraphSeconds = 0.9f; public int minCount = 1, maxCount = 3; public float flightSeconds = 1.25f, stagger = 0.3f, spread = 2.6f, apexHeight = 4.2f, blastRadius = 0.95f, blastSeconds = 0.2f;
+            public float telegraphSeconds = 0.9f; public int minCount = 2, maxCount = 3; public float flightSeconds = 1.25f, stagger = 0.3f, spread = 2.6f, apexHeight = 4.2f, blastRadius = 0.95f, blastSeconds = 0.2f;
             public int damage = 1; public float[] weight = { 1f, 1f, 1f };
         }
         [Serializable] public class HandSlam
         {
-            public float telegraphSeconds = 1.15f, zoneWidth = 2.6f, zoneHeight = 5f, slamSeconds = 0.18f, holdSeconds = 0.35f; public float waveSpeed = 7f, waveHeight = 0.8f, waveWidth = 0.9f, waveLife = 3.2f;
+            public float telegraphSeconds = 1.15f, zoneWidth = 2.6f, zoneHeight = 5f, slamSeconds = 0.18f, holdSeconds = 0.35f; public float waveSpeed = 8f, waveHeight = 0.8f, waveWidth = 0.9f, waveLife = 3.2f;
             public int damage = 1; public float[] weight = { 1f, 1f, 1f };
         }
         [Serializable] public class FrostBlob

@@ -24,3 +24,7 @@ Legend: TESTED / WRITTEN / PLANNED (see PROJECT_STATUS.md).
 ## 2026-10-09 (evening): first hands-on try, dead input
 - User ran the first Windows build: buttons did not work (gamepad untried). Root cause found: ProjectSettings had activeInputHandler 0 (old Input Manager), so the Input System was inactive in the player. All earlier tests injected input through ScriptedIntent, which bypassed the problem, and the report had flagged real input as unverified.
 - Fixes: activeInputHandler set to 1 (and enforced by ProjectSetup), arrow-key bindings added. Added RealInputTests (9) using virtual keyboard, gamepad and mouse. Rebuilt the exe and drove it with real Windows key presses. EditMode 22/22, PlayMode 27/27.
+
+## 2026-10-09 (night): feedback tuning and art-pipeline planning
+- User feedback after playing: controls snappy and good, fight too easy, dash slightly longer. Applied: dash 0.26 s, boss 180 HP, quicker rhythm, 2-3 cupcakes, shockwave 8. The serialized tuning asset had to be regenerated (it held the old values and overrides code defaults).
+- Art upgrade request received. Surveyed the environment: no image-generation tool, no API keys, no local diffusion install; RX 7900 XT 20 GB available. Wrote `AI_HANDOFF/ART_PIPELINE_PLAN.md` (options, recommendation, spec) and a self-contained `Docs/CODEX_SPRITE_BRIEF.md` for Codex. No sprites generated; placeholders remain.

@@ -29,6 +29,9 @@ EditMode **22/22** passed; PlayMode **27/27** passed (13 gameplay, 9 real-input,
 ## Human feedback so far
 - 2026-10-09: first hands-on try found dead input (fixed). After the fix the user reported: "Controls work good" (which device was not stated; a physical gamepad is still unconfirmed). No feedback yet on jump/dash feel, boss difficulty, visuals or sound.
 
+## Tuning after first play (2026-10-09)
+User feedback: fight "pretty easy", dash "could be slightly longer", controls snappy. Changes: dash 0.20 s to 0.26 s (about 3.6 units), boss health 120 to 180, boss idle/recovery shorter (phase 1: 0.8 s/0.7 s), Cupcake Toss always 2-3 cupcakes, shockwave speed 8. Tests updated to read numbers from the tuning; EditMode 22/22, PlayMode 27/27. Difficulty is NOT yet re-judged by a human.
+
 ## Known bugs and open issues
 - No human has played it. Feel (jump, dash, shot rate, boss pacing), fairness and difficulty are unjudged beyond the scripted checks.
 - Visuals are crude placeholders compared with the concept art (see `SCREENSHOTS/VISUAL_REVIEW.md`).

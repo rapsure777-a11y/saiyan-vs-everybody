@@ -12,21 +12,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d14f98c28242e540a28185007193df2, type: 3}
   m_Name: KingCakezillaTuning
   m_EditorClassIdentifier: Saiyan.Runtime::Saiyan.Boss.BossTuning
-  maxHealth: 120
+  maxHealth: 180
   phase2At: 0.7
   phase3At: 0.35
   transitionSeconds: 2.6
   idleSeconds:
-  - 1.1
-  - 0.9
+  - 0.8
   - 0.7
+  - 0.55
   recoverySeconds:
-  - 0.9
-  - 0.75
+  - 0.7
   - 0.6
+  - 0.5
   cupcakeToss:
     telegraphSeconds: 0.9
-    minCount: 1
+    minCount: 2
     maxCount: 3
     flightSeconds: 1.25
     stagger: 0.3
@@ -45,7 +45,7 @@ MonoBehaviour:
     zoneHeight: 5
     slamSeconds: 0.18
     holdSeconds: 0.35
-    waveSpeed: 7
+    waveSpeed: 8
     waveHeight: 0.8
     waveWidth: 0.9
     waveLife: 3.2
