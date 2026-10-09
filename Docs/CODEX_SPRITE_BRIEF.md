@@ -35,3 +35,27 @@ Loop-friendly (frame 07 leads back into frame 00): gentle breathing, slight body
 
 ## Report (required)
 Commit your files and add `Art/Source/Saiyan/REPORT.md` stating: what tool or method generated the images, whether any frame was edited by hand or by script, which frames you rejected and why, and anything you could not do. Push the branch and tell the user the branch name and the last commit SHA. Be explicit about what is genuinely generated art versus anything placeholder.
+
+
+---
+
+# ROUND 2 (after Claude's review of the first model sheet, 2026-10-09)
+
+The first sheet (`Art/Source/Saiyan/model_sheet.png`, commit bae0269 on `codex/saiyan-model-sheet`) is a strong design: costume, scarf, crown emblem, gloves, big blue-and-white shoes, hair and the six expressions are all on-model and read clearly. Thank you. Keep this character. Two things must change before we animate, and one thing must be tested first.
+
+## A. Simplify for animation (production model sheet)
+Hundreds of frames will have to stay consistent, so the drawing needs to be cheaper to repeat exactly:
+- **Thicker, more uniform ink outline** (the classic cartoon look); fewer thin hair strands (draw the hair as about 8-10 bold tufts with a consistent shape); flat cel shading with at most two tones (base + one shadow), no gradients, no fabric-texture noise, no dirt/scuffs on the pants or shoes.
+- Keep the same face design, proportions, colors and costume. Keep the scarf, crown emblem (chest and shoes), cargo pockets.
+- The hurt expression's cheek scratch is fine as an optional mark; do not add other marks.
+
+## B. Clean background
+Transparent PNG with **no ground shadow**, or flat pure magenta `#FF00FF` with no shadow, no gradient, no cream tint. Anything the pipeline has to remove by guesswork risks eating the outline.
+
+## C. Pose test BEFORE the idle animation (stop for review again)
+Produce `Art/Source/Saiyan/pose_test.png` (or one PNG per pose), side view facing right, **same scale, same outline, same colors as the simplified sheet**, on the clean background:
+1. mid-stride running pose, 2. jump rising pose (arms up, scarf streaming), 3. shooting pose (front glove thrust forward, a small star leaving it), 4. dash pose (leaning forward, with one speed-smear version), 5. hurt pose (recoiling).
+Purpose: prove the character survives motion without the face, hands, shoes or hair drifting. Do not start the 8-frame idle until the pose test is reviewed.
+
+## D. Report
+Update `Art/Source/Saiyan/REPORT.md` (method, edits, rejected outputs, remaining flaws) and push the same branch. If a pose comes out inconsistent, regenerate it instead of keeping it.
