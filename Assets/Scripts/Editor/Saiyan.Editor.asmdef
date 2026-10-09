@@ -1,0 +1,7 @@
+{
+  "name": "Saiyan.Editor",
+  "rootNamespace": "Saiyan.Editor",
+  "references": [ "Saiyan.Runtime", "Unity.RenderPipelines.Universal.Runtime", "Unity.InputSystem" ],
+  "includePlatforms": [ "Editor" ],
+  "excludePlatforms": []
+}
