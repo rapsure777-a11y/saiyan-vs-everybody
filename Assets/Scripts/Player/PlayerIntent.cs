@@ -66,17 +66,19 @@ namespace Saiyan.Player
         }
     }
 
-    /// <summary>Test and replay input: set the fields from code.</summary>
+    /// <summary>Test and replay input: set the fields from code. A press set during frame N is delivered once, in frame N+1 (same as a real key press).</summary>
     public sealed class ScriptedIntent : MonoBehaviour, IIntentSource
     {
         public PlayerIntent Current;
-        int m_Frame = -1;
+        int m_Frame = -1; PlayerIntent m_Cached;
         public PlayerIntent Read()
         {
-            var r = Current;
-            if (m_Frame != Time.frameCount) { m_Frame = Time.frameCount; }
-            return r;
+            if (m_Frame != Time.frameCount)
+            {
+                m_Frame = Time.frameCount; m_Cached = Current;
+                Current.jumpPressed = false; Current.dashPressed = false; Current.superPressed = false; Current.pausePressed = false; Current.anyPressed = false;
+            }
+            return m_Cached;
         }
-        void LateUpdate() { Current.jumpPressed = false; Current.dashPressed = false; Current.superPressed = false; Current.pausePressed = false; Current.anyPressed = false; }
     }
 }

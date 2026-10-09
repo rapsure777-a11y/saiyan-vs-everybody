@@ -11,7 +11,7 @@ namespace Saiyan.Boss
     /// </summary>
     public sealed class BossVisual : MonoBehaviour
     {
-        Transform m_Body, m_Crown, m_PupilL, m_PupilR, m_Mouth; Transform[] m_Hand = new Transform[2]; Vector2[] m_HandHomeLocal = { new Vector2(-4.2f, 4.7f), new Vector2(-3.7f, 2.7f) };
+        Transform m_Body, m_Crown, m_PupilL, m_PupilR, m_Mouth; Transform[] m_Hand = new Transform[2]; Vector2[] m_HandHomeLocal = { new Vector2(-4.9f, 6.3f), new Vector2(-4.5f, 3.0f) };
         SpriteRenderer[] m_Body_Srs, m_HandSrs0, m_HandSrs1; SpriteRenderer m_MouthSr; GameObject m_Aura;
         float m_Flash, m_Age; int m_TeleIdx = -1; int m_Phase = 1; Vector2[] m_HandPunch = new Vector2[2]; Transform m_Player; Color m_PhaseTint = Color.white;
         readonly List<SpriteRenderer> m_Tinted = new List<SpriteRenderer>();

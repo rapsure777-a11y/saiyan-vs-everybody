@@ -12,6 +12,7 @@ namespace Saiyan.Player
     {
         Transform m_Root, m_Scarf, m_GloveF, m_GloveB, m_Head, m_LegF, m_LegB;
         SpriteRenderer[] m_All; PlayerController m_C; PlayerHealth m_H; PlayerShooter m_S;
+        const float VisualScale = 1.3f;
         float m_Squash, m_Phase, m_ShootPulse;
 
         public void Build()
@@ -54,6 +55,7 @@ namespace Saiyan.Player
             m_GloveF = new GameObject("GloveFront").transform; m_GloveF.SetParent(m_Root, false); m_GloveF.localPosition = new Vector3(0.4f, 0.78f, 0f);
             PlaceholderArt.Part(m_GloveF, "g", PlaceholderArt.Circle(0.34f, Palette.Glove), Vector2.zero, 13);
             m_All = GetComponentsInChildren<SpriteRenderer>(true);
+            foreach (var sr in m_All) sr.sortingOrder += 30;               // Saiyan is always drawn in front of the boss gloves and hazards, so he stays readable
             if (m_C) { m_C.Landed += () => m_Squash = 0.28f; m_C.Jumped += () => m_Squash = -0.22f; m_C.DashStarted += OnDash; }
             if (m_S) m_S.Fired += () => m_ShootPulse = 0.12f;
         }
@@ -69,7 +71,7 @@ namespace Saiyan.Player
             float stretch = air ? Mathf.Clamp(v.y * 0.012f, -0.1f, 0.14f) : 0f;
             float sx = 1f - stretch * 0.6f + m_Squash * 0.5f, sy = 1f + stretch - m_Squash * 0.5f;
             if (m_C.Dashing) { sx = 1.25f; sy = 0.8f; }
-            m_Root.localScale = new Vector3(m_C.Facing * sx, sy, 1f);
+            m_Root.localScale = new Vector3(m_C.Facing * sx, sy, 1f) * VisualScale;
             float speed = Mathf.Abs(v.x);
             bool running = m_C.Grounded && speed > 0.5f;
             m_Phase += (running ? speed * 2.1f : 0f) * Time.deltaTime;

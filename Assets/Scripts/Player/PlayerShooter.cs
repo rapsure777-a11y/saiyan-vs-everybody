@@ -30,6 +30,8 @@ namespace Saiyan.Player
 
         void OnDestroy() { if (m_Root) Destroy(m_Root.gameObject); }
 
+        public void NotifyHit(int damage) { if (Meter) Meter.OnShotLanded(damage); }
+
         void Update()
         {
             m_Cooldown -= Time.deltaTime;
@@ -44,7 +46,7 @@ namespace Saiyan.Player
             var s = EnsurePool().Get(); if (!s) return;
             m_Cooldown = FireInterval; ShotsFired++;
             var pos = (Vector2)transform.position + new Vector2(MuzzleOffset.x * m_Controller.Facing, MuzzleOffset.y);
-            s.Fire(m_Pool, pos, new Vector2(m_Controller.Facing, 0f), ShotDamage, 1f, false, ShotSpeed, ShotLife);
+            s.Owner = this; s.Fire(m_Pool, pos, new Vector2(m_Controller.Facing, 0f), ShotDamage, 1f, false, ShotSpeed, ShotLife);
             AudioHooks.Play(Cue.Shoot, 0.5f);
             Fired?.Invoke();
         }
@@ -55,10 +57,10 @@ namespace Saiyan.Player
             var pool = EnsurePool();
             var pos = (Vector2)transform.position + new Vector2(MuzzleOffset.x * m_Controller.Facing, MuzzleOffset.y);
             var big = pool.Get();
-            if (big) big.Fire(pool, pos, new Vector2(m_Controller.Facing, 0f), SuperDamage, 3.2f, true, 15f, 1.8f);
+            if (big) { big.Owner = this; } if (big) big.Fire(pool, pos, new Vector2(m_Controller.Facing, 0f), SuperDamage, 3.2f, true, 15f, 1.8f);
             for (int k = -1; k <= 1; k += 2)
             {
-                var h = pool.Get(); if (!h) continue;
+                var h = pool.Get(); if (!h) continue; h.Owner = this;
                 var d = Quaternion.Euler(0, 0, 14f * k) * new Vector2(m_Controller.Facing, 0f);
                 h.Fire(pool, pos, d, 1, 1.4f, false, 16f, 1.4f);
             }

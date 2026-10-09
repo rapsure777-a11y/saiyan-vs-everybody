@@ -84,6 +84,17 @@ namespace Saiyan.Tests
         }
 
         [Test]
+        public void EveryAttackGetsChosenWithinAReasonableNumberOfPicks()
+        {
+            for (int seed = 1; seed <= 200; seed++)
+            {
+                var s = new AttackSelector(seed); var w = new List<float> { 1f, 1f, 1f }; var seen = new HashSet<int>();
+                for (int i = 0; i < 60; i++) seen.Add(s.Pick(w));
+                Assert.AreEqual(3, seen.Count, "seed " + seed);
+            }
+        }
+
+        [Test]
         public void ZeroWeightIsNeverPicked_AndNothingAvailableReturnsMinusOne()
         {
             var s = new AttackSelector(3);

@@ -10,11 +10,12 @@ namespace Saiyan.Level
         public static GameObject Create(Transform parent, float x, string text, float width = 3.6f)
         {
             var go = new GameObject("Sign"); go.transform.SetParent(parent, false); go.transform.position = new Vector3(x, LevelLayout.FloorY, 0f);
-            PlaceholderArt.Part(go.transform, "post", PlaceholderArt.RoundRect(0.25f, 1.6f, Palette.Chocolate, 0.08f), new Vector2(0f, 0.8f), 6);
-            PlaceholderArt.Part(go.transform, "board", PlaceholderArt.RoundRect(width, 1.25f, new Color(1f, 0.93f, 0.75f), 0.2f, 4f), new Vector2(0f, 2.0f), 7);
-            var t = new GameObject("text"); t.transform.SetParent(go.transform, false); t.transform.localPosition = new Vector3(0f, 2.0f, 0f);
+            int lines = text.Split((char)10).Length; float boardH = 0.55f + 0.42f * lines, boardY = 1.5f + boardH * 0.5f;
+            PlaceholderArt.Part(go.transform, "post", PlaceholderArt.RoundRect(0.25f, boardY, Palette.Chocolate, 0.08f), new Vector2(0f, boardY * 0.5f), 6);
+            PlaceholderArt.Part(go.transform, "board", PlaceholderArt.RoundRect(width, boardH, new Color(1f, 0.93f, 0.75f), 0.2f, 4f), new Vector2(0f, boardY), 7);
+            var t = new GameObject("text"); t.transform.SetParent(go.transform, false); t.transform.localPosition = new Vector3(0f, boardY, 0f);
             var tm = t.AddComponent<TextMesh>();
-            tm.text = text; tm.anchor = TextAnchor.MiddleCenter; tm.alignment = TextAlignment.Center; tm.fontSize = 64; tm.characterSize = 0.075f; tm.color = new Color(0.25f, 0.12f, 0.1f);
+            tm.text = text; tm.anchor = TextAnchor.MiddleCenter; tm.alignment = TextAlignment.Center; tm.fontSize = 64; tm.characterSize = 0.06f; tm.color = new Color(0.25f, 0.12f, 0.1f);
             tm.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
             var mr = t.GetComponent<MeshRenderer>(); mr.sharedMaterial = tm.font.material; mr.sortingOrder = 8;
             return go;

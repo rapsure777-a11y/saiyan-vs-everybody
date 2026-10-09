@@ -77,11 +77,15 @@ namespace Saiyan.Core
         public static Sprite Heart(float size, Color fill)
         {
             int p = Px(size);
-            return Make(K("heart", size, 0, fill, 3f), p, p, (x, y) =>
+            return Make(K("heart2", size, 0, fill, 3f), p, p, (x, y) =>
             {
-                float nx = (x / p - 0.5f) * 2.3f, ny = (y / p - 0.45f) * 2.3f;                           // classic implicit heart: (x^2+y^2-1)^3 - x^2 y^3
-                float a = nx * nx + ny * ny - 1f; float v = a * a * a - nx * nx * ny * ny * ny;
-                return Mathf.Clamp(v * 6f, -6f, 6f);
+                // a heart is a square turned 45 degrees plus two circles on its upper edges; distances in pixels
+                float u = x / p, v = y / p;
+                const float R = 0.30f, cy = 0.46f, rc = 0.2121f;
+                float dDiamond = (Mathf.Abs(u - 0.5f) + Mathf.Abs(v - cy) - R) * 0.7071f;
+                float dL = Mathf.Sqrt((u - 0.35f) * (u - 0.35f) + (v - (cy + 0.15f)) * (v - (cy + 0.15f))) - rc;
+                float dR = Mathf.Sqrt((u - 0.65f) * (u - 0.65f) + (v - (cy + 0.15f)) * (v - (cy + 0.15f))) - rc;
+                return Mathf.Min(dDiamond, Mathf.Min(dL, dR)) * p;
             }, fill, Ink, 2.5f);
         }
 
