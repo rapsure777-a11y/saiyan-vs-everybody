@@ -89,6 +89,8 @@ namespace Saiyan.Level
         {
             m_StateTime += Time.unscaledDeltaTime;
             var i = m_Input.Read();
+            var kb = UnityEngine.InputSystem.Keyboard.current;
+            if (kb != null && kb.f9Key.wasPressedThisFrame && Player.SpriteVisual) { Player.SpriteVisual.Toggle(); HudUi.Banner(Player.SpriteVisual.Active ? "SPRITE ART (F9)" : "PLACEHOLDER ART (F9)", 1.2f); }
             if (i.pausePressed && (State == LevelState.Tutorial || State == LevelState.Fight || State == LevelState.BossIntro) && !Player.Health.Dead) SetPaused(!Paused);
             if (Paused) return;
             if (State == LevelState.Tutorial && Player.Transform.position.x >= LevelLayout.FightTriggerX) BeginBossIntro(false);

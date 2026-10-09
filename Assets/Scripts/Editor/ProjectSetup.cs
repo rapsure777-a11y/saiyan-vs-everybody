@@ -19,7 +19,7 @@ namespace Saiyan.Editor
     /// </summary>
     public static class ProjectSetup
     {
-        public const string MenuScene = "Assets/Scenes/MainMenu.unity", LevelScene = "Assets/Scenes/Level01_FrostingFields.unity";
+        public const string MenuScene = "Assets/Scenes/MainMenu.unity", LevelScene = "Assets/Scenes/Level01_FrostingFields.unity", PreviewScene = "Assets/Scenes/AnimationPreview.unity";
         const string TuningPath = "Assets/Settings/KingCakezillaTuning.asset", InputPath = "Assets/Resources/Input/SaiyanControls.inputactions", UrpPath = "Assets/Settings/SaiyanURP.asset", RendererPath = "Assets/Settings/SaiyanURP_Renderer.asset";
 
         [MenuItem("Saiyan/Setup Project")]
@@ -75,7 +75,10 @@ namespace Saiyan.Editor
             var level = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
             AddCamera(); var flow = new GameObject("LevelFlow").AddComponent<LevelFlow>(); flow.Tuning = tuning;
             EditorSceneManager.SaveScene(level, LevelScene);
-            EditorBuildSettings.scenes = new[] { new EditorBuildSettingsScene(MenuScene, true), new EditorBuildSettingsScene(LevelScene, true) };
+            var preview = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
+            AddCamera(); new GameObject("AnimationPreview").AddComponent<Saiyan.Art.AnimationPreview>();
+            EditorSceneManager.SaveScene(preview, PreviewScene);
+            EditorBuildSettings.scenes = new[] { new EditorBuildSettingsScene(MenuScene, true), new EditorBuildSettingsScene(LevelScene, true), new EditorBuildSettingsScene(PreviewScene, true) };
             Debug.Log("[Saiyan] scenes created and added to build settings");
         }
 
@@ -103,7 +106,7 @@ namespace Saiyan.Editor
         {
             Run();
             Directory.CreateDirectory("Builds/Windows");
-            var report = BuildPipeline.BuildPlayer(new BuildPlayerOptions { scenes = new[] { MenuScene, LevelScene }, locationPathName = "Builds/Windows/SaiyanVsEverybody.exe", target = BuildTarget.StandaloneWindows64, options = BuildOptions.None });
+            var report = BuildPipeline.BuildPlayer(new BuildPlayerOptions { scenes = new[] { MenuScene, LevelScene, PreviewScene }, locationPathName = "Builds/Windows/SaiyanVsEverybody.exe", target = BuildTarget.StandaloneWindows64, options = BuildOptions.None });
             Debug.Log($"[Saiyan] build {report.summary.result}: errors {report.summary.totalErrors}, size {report.summary.totalSize / (1024 * 1024)} MB");
             if (Application.isBatchMode) EditorApplication.Exit(report.summary.result == UnityEditor.Build.Reporting.BuildResult.Succeeded ? 0 : 1);
         }

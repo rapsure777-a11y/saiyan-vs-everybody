@@ -8,7 +8,7 @@ namespace Saiyan.Player
     {
         public sealed class Player
         {
-            public GameObject Go; public PlayerController Controller; public PlayerHealth Health; public PlayerShooter Shooter; public SuperMeter Meter; public PlayerVisual Visual;
+            public GameObject Go; public PlayerController Controller; public PlayerHealth Health; public PlayerShooter Shooter; public SuperMeter Meter; public PlayerVisual Visual; public SaiyanSpriteVisual SpriteVisual;
             public Transform Transform => Go.transform;
         }
 
@@ -23,6 +23,7 @@ namespace Saiyan.Player
             p.Meter = go.AddComponent<SuperMeter>();
             p.Shooter = go.AddComponent<PlayerShooter>(); p.Shooter.Meter = p.Meter; p.Shooter.Health = p.Health;
             p.Visual = go.AddComponent<PlayerVisual>(); p.Visual.Build();
+            p.SpriteVisual = go.AddComponent<SaiyanSpriteVisual>(); p.SpriteVisual.Build(p.Visual);       // real sprite art when it exists (toggle with F9 in the level)
             rb.position = feetPosition;
             return p;
         }

@@ -60,6 +60,9 @@ namespace Saiyan.Player
             if (m_S) m_S.Fired += () => m_ShootPulse = 0.12f;
         }
 
+        public void SetVisible(bool on) { if (m_Root) m_Root.gameObject.SetActive(on); }
+        public bool Visible => m_Root && m_Root.gameObject.activeSelf;
+
         void OnDash() { AudioHooks.Play(Cue.Dash); Fx.Puff(transform.position + new Vector3(-0.3f * m_C.Facing, 0.25f, 0), 0.7f, null, 0.4f, new Vector2(-m_C.Facing * 1.2f, 0.4f)); }
 
         void Update()

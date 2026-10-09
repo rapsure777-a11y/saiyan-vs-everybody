@@ -19,7 +19,7 @@ namespace Saiyan.Tests
             {
                 var s = SceneManager.GetSceneAt(i);
                 if (s == keep) continue;
-                if (s == current || s.name == LevelFlow.SceneName || s.name == LevelFlow.MenuSceneName || s.name.StartsWith("keep_")) list.Add(s);
+                if (s == current || s.name == LevelFlow.SceneName || s.name == LevelFlow.MenuSceneName || s.name == Saiyan.Art.AnimationPreview.SceneName || s.name.StartsWith("keep_")) list.Add(s);
             }
             foreach (var s in list) if (s.isLoaded) { var op = SceneManager.UnloadSceneAsync(s); while (op != null && !op.isDone) yield return null; }
             yield return null;

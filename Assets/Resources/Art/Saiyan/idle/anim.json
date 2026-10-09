@@ -1,0 +1,15 @@
+{
+  "character": "Saiyan",
+  "name": "idle",
+  "fps": 8.0,
+  "loop": true,
+  "ppu": 200,
+  "frameSize": 512,
+  "frames": 8,
+  "pivot": [
+    0.5146,
+    0.0332
+  ],
+  "heightPx": 466,
+  "events": []
+}

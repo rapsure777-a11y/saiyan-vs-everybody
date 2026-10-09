@@ -32,7 +32,7 @@ namespace Saiyan.UI
             var play = UiKit.Button(m_Main.transform, "Play", new Vector2(0.5f, 0.5f), new Vector2(0f, 20f), new Vector2(520f, 110f), () => SceneManager.LoadScene(LevelFlow.SceneName), 56);
             UiKit.Button(m_Main.transform, "Controls", new Vector2(0.5f, 0.5f), new Vector2(0f, -110f), new Vector2(520f, 100f), () => Show(false), 48);
             UiKit.Button(m_Main.transform, "Quit", new Vector2(0.5f, 0.5f), new Vector2(0f, -230f), new Vector2(520f, 100f), Quit, 48);
-            UiKit.Label(m_Main.transform, "Note", "Vertical slice: Frosting Fields and King Cakezilla (placeholder art)", 26, new Vector2(0.5f, 0f), new Vector2(0f, 40f), new Vector2(1500f, 40f), new Color(1f, 1f, 1f, 0.9f));
+            UiKit.Label(m_Main.transform, "Note", "Vertical slice: Frosting Fields and King Cakezilla (placeholder art)   |   F10: animation preview   |   F9 in game: sprite art", 26, new Vector2(0.5f, 0f), new Vector2(0f, 40f), new Vector2(1500f, 40f), new Color(1f, 1f, 1f, 0.9f));
 
             m_Controls = new GameObject("Controls", typeof(RectTransform)); Stretch(m_Controls, canvas.transform);
             UiKit.Panel(m_Controls.transform, "Card", new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(1300f, 880f), Color.white, PlaceholderArt.RoundRect(1300f / 64f, 880f / 64f, new Color(0.3f, 0.45f, 0.9f), 0.5f, 5f));
@@ -70,6 +70,8 @@ namespace Saiyan.UI
 
         void Update()
         {
+            var kb = UnityEngine.InputSystem.Keyboard.current;
+            if (kb != null && kb.f10Key.wasPressedThisFrame) SceneManager.LoadScene(Saiyan.Art.AnimationPreview.SceneName);
             m_Star1.localPosition = new Vector3(-7f, 3f + Mathf.Sin(Time.time * 1.6f) * 0.3f, 0f); m_Star1.localRotation = Quaternion.Euler(0, 0, Time.time * 20f);
             m_Star2.localPosition = new Vector3(7.5f, 1.5f + Mathf.Sin(Time.time * 2f + 1f) * 0.25f, 0f); m_Star2.localRotation = Quaternion.Euler(0, 0, -Time.time * 25f);
         }
