@@ -2,10 +2,10 @@
 
 Run with `Tools/unity-run.ps1`. Code commit `81b44ff`.
 
-## Automated: EditMode 22/22 passed
+## Automated: EditMode 27/27 passed (22 logic tests + 5 sprite clip timing tests)
 Jump timers (buffer, coyote windows, one jump per press); attack selector (never three in a row over 30 seeds x 2000 picks, weights respected, zero weight never picked, all attacks chosen within 60 picks for 200 seeds); boss health (thresholds fire once in order, big hits clamp to the 70/35 lines, an invulnerable boss ignores damage, defeat fires once); player health (hit, invulnerability, death once, granted invulnerability); Super meter; design checks (telegraph minimums, phase lines, arc maths, arena geometry, platforms reachable by the jump).
 
-## Automated: PlayMode 27/27 passed (18 scripted-input runs + 9 real-input runs)
+## Automated: PlayMode 36/36 passed (13 gameplay, 9 real-input, 6 sprite-art, 8 visual-report runs)
 Level builds; player lands; full jump versus short hop height; dash distance and level air dash; fire rate, shot cap and despawn; stars damage the boss and charge Super; Super deals about 12 and spends the meter; phase thresholds protect the boss and the fight can be won with no hazards left; 50 s of attacks vary, never triple and stay under the hazard cap; a stand-still bot is hit but only after the first warning (and not within 0.6 s of it); death then Retry restarts at the checkpoint in the Fight state; pause freezes and resumes; Assist Mode values; plus 5 visual-report runs that produced the screenshots and clips.
 
 ## Real input (added after the first hands-on try found dead buttons)
@@ -20,3 +20,6 @@ Root cause: the project used the OLD Input Manager (`activeInputHandler: 0`), so
 - The Reduced Shake option's effect (the setting exists, the effect was not measured).
 - Phase 2 and 3 attacks and the Supreme form (do not exist yet).
 - Visual quality against the concept art: reviewed by me from the screenshots only (see `AI_HANDOFF/SCREENSHOTS/VISUAL_REVIEW.md`).
+
+## Sprite-art tests (Milestone A)
+Library loads the Saiyan idle with 8 frames, 8 fps, loop, 200 ppu, 512 px frames and the feet pivot from anim.json (so the automatic import rules work); the sprite visual shows in the level, cycles through its frames and hides the placeholder; the toggle restores the placeholder; the feet sit on the floor while the hitbox stays 0.6 x 1.3 and a normal jump still reaches 2.2-2.9 units; facing left mirrors the drawing; the preview scene loads, lists idle, loops, pauses and steps frames. NOT verified: how the art looks in motion to a human, and every animation other than idle (they do not exist yet).

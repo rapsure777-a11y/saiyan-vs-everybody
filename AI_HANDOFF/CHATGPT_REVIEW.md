@@ -1,50 +1,48 @@
 # REVIEW BRIEF FOR CHATGPT (read this instead of the repo)
 
-Report time: 2026-10-09, end of Milestone 1 build. Branch `claude/milestone-1-greybox`, code commit `81b44ff` (the report commit follows; `git log -1` is truth). Status words: TESTED = run in Unity; WRITTEN = code only; PLANNED.
-Goal reminder: a polished hybrid classic-and-modern cartoon boss-fight game, with Cuphead-inspired expressive animation quality but original designs.
+Report time: 2026-10-09, Milestone A (first real sprite art). Branch `claude/milestone-1-greybox`, code commit `e8b86bd` (reports commit follows; `git log -1` is truth). TESTED = run in Unity; WRITTEN = code only; PLANNED.
+Goal: a polished hybrid classic-and-modern cartoon boss-fight game, Cuphead-inspired expressive animation, original designs.
 
-## Latest screenshots (REAL renders of the running game; none are concept art)
-Folder: `AI_HANDOFF/SCREENSHOTS/` (index in its README, full critique in `VISUAL_REVIEW.md`). Key frames:
-- Saiyan close-up: `M1_2026-10-09_01_saiyan-closeup-idle.jpg`; dash/jump: `04_...`, `07_...`
-- Boss: `M1_2026-10-09_11_king-cakezilla-closeup.jpg`; fight overview with HUD: `12_fight-overview-idle-hud.jpg`
-- Attacks (warning, then action): `20_`..`25_` (Cupcake Toss, Hand Slam, Frost Blob)
-- Phases: `40_phase-2-transition`, `43_phase-3-cakezilla-supreme`
-- UI: `51_ui-sweet-victory`, `60_ui-pause-menu`, `61_ui-game-over-retry`, `62_ui-main-menu`
-- Clips: `M1_2026-10-09_video_movement-and-combat.mp4`, `M1_2026-10-09_video_boss-fight-and-phases.mp4`
-Concept art for comparison (NOT gameplay): `References/ConceptArt/01_Game_Key_Art.png`, `02_Saiyan_vs_King_Cakezilla.png`.
+## Latest screenshots (REAL renders of the running Unity game unless labeled)
+Folder `AI_HANDOFF/SCREENSHOTS/` (README lists everything; `VISUAL_REVIEW.md` is the older critique of the placeholder art).
+- **Before / after (same camera, same moment):** `MA_2026-10-09_A0_before-after-comparison.jpg` (placeholder shapes vs generated sprite)
+- Sprite in the tutorial: `MA_..._A3_sprite-in-tutorial.jpg`; in the boss fight: `A4_sprite-in-boss-fight.jpg`; beside a boss attack warning: `A5_...`; shooting: `A6_...` (no shoot art yet, so it only stretches)
+- Animation preview scene (world view only; its IMGUI panel is not captured): `A7_...`
+- **Sprite sheet contact sheet (processed frames on the game's sky color, NOT a game render):** `MA_..._saiyan-idle_contact-sheet.jpg`; animated loop: `MA_..._saiyan-idle_preview.gif` (also NOT a game render)
+- Clip of the sprite in the level (run/jump are procedural stretch only): `MA_..._video_sprite-idle-in-game.mp4`
+- Earlier boss, attack, phase and UI stills and clips: `M1_2026-10-09_*`
+- Source art from Codex (model sheets, pose test, 8 raw idle frames): `Art/Source/Saiyan/` (NOT game renders). Concept art for comparison: `References/ConceptArt/`.
 
 ## 1. What changed since the last report
-The whole slice got written and run: boss controller with three phase 1 attacks, tutorial level and arena, HUD, menus, retry/pause, editor setup, 40 automated tests, and the first real screenshots and clips. Bugs found and fixed by tests: player stars never moved (kinematic MovePosition), Super meter shared across all players via a static event, test-world leaks, a hang in a paused wait.
+Real art arrived: Codex (image generation) produced a model sheet, a 5-pose test and 8 idle frames after two review rounds from me (simplify, clean background, lock scarf/hair/gloves). I built the pipeline: `Tools/sprites/process_frames.py` (magenta key-out with edge un-mixing, colour matching across frames, bleed fix, feet pivot, 512 px export, contact sheet and GIF), automatic Unity import rules, a flipbook animator with frame events, `SaiyanSpriteVisual` (sprite art with the placeholder as fallback; F9 toggles in the level), and an Animation Preview scene (F10 on the main menu). Also tuning after the first human play: dash 0.26 s, boss 180 HP, faster rhythm.
 
 ## 2. What is working (TESTED)
-EditMode 22/22, PlayMode 18/18. Verified by scripted runs: jump (full height about 2.5 u, short hop clearly lower), dash distance and level air dash, shot rate and caps and despawn, stars damage the boss and charge the Super, Super deals 12, boss phases clamp at 70/35 percent and are invulnerable during transitions, whole fight winnable, 50 s of attacks never triple-repeat and stay under 12 hazards, a stand-still player is hit only after the first warning, death then Retry from checkpoint, pause, Assist Mode values.
+EditMode 27/27, PlayMode 36/36. The idle loop plays in the game and the preview scene; feet sit on the floor via the pivot; the gameplay hitbox is unchanged (0.6 x 1.3) and independent of the 2.3-unit-tall art; facing left mirrors the drawing; the toggle restores the placeholder; the preview scene lists animations, loops, pauses, steps frames, changes speed/scale, shows hitbox and pivot. Real keyboard, gamepad and mouse input verified through virtual devices; the user confirmed the controls feel good in the earlier build.
 
-## 3. What is not working or unverified
-- No human playtest; feel and fairness unjudged. Gamepad and real keyboard input untested (scripted input only). Audio untested by ear. No Windows build yet.
-- Phase 2/3 attacks and Supreme form do not exist (transitions only re-tint). 
-- Art is placeholder shapes; animation is code-driven (see VISUAL_REVIEW).
+## 3. What is not working / missing
+- Only **idle** exists (8 frames, small breathing, one blink). Missing Saiyan animations: run, jump (takeoff, rise, fall, land), dash with smear, shoot, run-and-shoot, hurt, defeat, Super, victory. Until then the sprite slides with procedural squash/lean when moving; sprite art is therefore OFF by default (F9 turns it on).
+- **No Cakezilla art** (preview shows "KingCakezilla (no art yet)"), no effects art (stars, dust, impacts, confetti): still procedural placeholders.
+- Codex said, and I confirm: the idle motion is subtle; hair is more detailed than ideal for a long production run; scarf is a single ribbon but broad in places.
+- No human judgment yet on how the sprite looks in motion in the game.
 
 ## 4. Decisions that need review
-- Procedural placeholder art now vs waiting for real sprites.
-- Dash has 0.12 s i-frames; Super gives 1 s invulnerability.
-- Boss health 120 (about 14 s of continuous hits; phase 1 alone about 4-5 s of hits): too short? 
-- Hand Slam column is floor-to-5-units tall (a platform does not protect you); shockwave must be jumped.
-- The boss body blocks movement with an invisible wall in front of it while stars pass through the wall (so the player cannot get inside the cake).
-- Assist Mode: 5 hearts and boss x0.66.
+1. Detail level: the generated style is more detailed (hair strands, shading) than a classic cartoon. Keep it, or ask for simpler hair and bolder outlines before the 100+ frame animations? (Colour drift between frames was real and had to be corrected in processing; more detail means more drift risk.)
+2. Is 8 fps for idle right, and should idle motion be exaggerated (bigger squash, bigger scarf and hair follow-through) for the Cuphead feel?
+3. Sprite size: 2.33 units tall (hitbox 1.3). Larger or smaller?
+4. Boss art route: separate animated parts (cut-out) vs full-frame sprite sheets; how to get the parts clean (generate each part separately)?
+5. Colour matching to frame 00 is a correction step (histogram match), not redrawing: acceptable?
 
 ## 5. Relevant files
-`Assets/Scripts/Player/` (PlayerController, PlayerHealth, PlayerShooter, StarShot, SuperMeter, PlayerVisual), `Assets/Scripts/Boss/` (BossController, BossHealth, BossTuning, AttackSelector, Hazards, BossVisual, Attacks/), `Assets/Scripts/Level/` (LevelFlow, ArenaBuilder, CameraRig, Props, LevelLayout), `Assets/Scripts/UI/` (Hud, MainMenu, UiKit), `Assets/Scripts/Editor/ProjectSetup.cs`, tests in `Assets/Tests/`, tuning asset `Assets/Settings/KingCakezillaTuning.asset`, reports in `AI_HANDOFF/`.
+`Tools/sprites/process_frames.py`; `Assets/Scripts/Art/SpriteClips.cs` (ClipPlayer, SpriteLibrary, SpriteFlipbook), `AnimationPreview.cs`; `Assets/Scripts/Player/SaiyanSpriteVisual.cs`; `Assets/Scripts/Editor/SpriteImport.cs`; processed frames `Assets/Resources/Art/Saiyan/idle/` (+ `anim.json`, `library.json`); source `Art/Source/Saiyan/`; briefs `Docs/CODEX_SPRITE_BRIEF.md`, `Docs/CODEX_ROUND3_FEEDBACK.md`; plan `AI_HANDOFF/ART_PIPELINE_PLAN.md`.
 
 ## 6. Commit and branch
-`claude/milestone-1-greybox` @ `81b44ff` (private repo `saiyan-vs-everybody`).
+`claude/milestone-1-greybox` @ `e8b86bd`. Codex's own branch `codex/saiyan-model-sheet` @ `bae0269` holds only its first sheet; later rounds were delivered as files and imported by me.
 
 ## 7. Recommended next milestone
-M1.5 (before M2): human playtest + Windows build, then commission or produce real sprite sheets for Saiyan and Cakezilla phase 1 (idle, run, jump, dash, shoot, hurt; Cakezilla idle, 3 attack tells, hurt, laugh). M2: phase 2 and 3 attacks and the Supreme transformation.
+Milestone B (core player animation): Codex generates run (10-12 frames), jump takeoff/rise/fall/land, dash with separate smear frames, shoot (with the frame where the star leaves the hand marked for the animation event) and hurt, in batches of one animation at a time with a contact sheet each, using the locked idle as the reference. I process and wire each batch, then turn sprite art ON by default once run, jump, dash, shoot and hurt exist.
 
 ## 8. Questions where a second opinion helps
-1. Looking at the stills, what are the three biggest gaps versus a Cuphead-level look, and in what order would you fix them (character sheet first? backgrounds? effects?)?
-2. Is 120 HP / about 9 shots per second a good fight length for a kid-friendly first boss, or should phase 1 alone be 30-40 s?
-3. Is the Hand Slam (marked floor column plus a jumpable shockwave) a fair phase 1 attack, and is 1.15 s of warning right?
-4. Saiyan is about 1.7 units tall on an 11.2-unit screen: how much bigger for readability and charm?
-5. For the Supreme form, a re-skin of the same rig or a separate rig?
-6. Any camera or composition advice for a one-screen arena with a boss taking the right third?
+1. Looking at A0 and A4: does the generated Saiyan fit the concept art and the Cuphead-inspired target, and what would make the animation feel more expressive (anticipation frames, smears, exaggeration)?
+2. Should hair be simplified for production, and how would you prompt that without changing the face?
+3. Best way to get a consistent, large animated boss from an image generator: full-frame sequences, layered parts, or both?
+4. Idle breathing is subtle: how much exaggeration is right for a kid-friendly arcade boss game?

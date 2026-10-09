@@ -29,3 +29,9 @@ powershell -NoProfile -ExecutionPolicy Bypass -File Tools\encode-clips.ps1 -Tag 
 | video_boss-fight-and-phases.mp4 (26 s) | fight with attacks, Super, 70 percent and 35 percent transitions (phase 2 and 3 reuse the phase 1 attacks for now) |
 
 See `VISUAL_REVIEW.md` in this folder for the comparison with the concept art and the list of improvements.
+
+
+## Milestone A additions (tag MA_2026-10-09): Saiyan sprite art
+Real game renders: `A0_before-after-comparison` (placeholder vs generated sprite, same camera), `A1`, `A2` (close-ups), `A3` tutorial, `A4` boss fight, `A5` beside a boss attack warning, `A6` shooting (no shoot art yet), `A7` animation-preview scene world view (the IMGUI control panel is not captured by this method). Clip: `video_sprite-idle-in-game.mp4`.
+NOT game renders (processed art on the sky colour): `saiyan-idle_contact-sheet.jpg`, `saiyan-idle_preview.gif`.
+M1 stills were regenerated on the same date after a test-cleanup fix; they are unchanged in content except for current tuning.
